@@ -1,0 +1,12 @@
+{
+  "name": "mytetr-server",
+  "version": "1.0.0",
+  "description": "MyTetr multiplayer server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
