@@ -18,7 +18,7 @@
             <button class="menu-btn" id="btnMulti">Multiplayer</button>
             <button class="menu-btn secondary" id="btnSettings">Settings</button>
         </div>
-        <div class="controls-hint">
+        <div class="controls-hint" id="controlsHint">
             <p>← → ↓ ↑ — движение / поворот</p>
             <p>Space — hard drop &nbsp;|&nbsp; C — hold &nbsp;|&nbsp; Esc — пауза</p>
         </div>
@@ -90,15 +90,24 @@
 <div id="settingsScreen" class="screen">
     <div class="menu-container">
         <h2 class="logo small">Settings</h2>
-        <div class="settings-panel">
-            <label class="setting-row">
-                <span>Звуки</span>
-                <input type="checkbox" id="toggleSound" checked>
-            </label>
-            <label class="setting-row">
-                <span>Музыка</span>
-                <input type="checkbox" id="toggleMusic" checked>
-            </label>
+        <div class="settings-scroll">
+            <div class="settings-panel">
+                <h3 class="settings-heading">Звук</h3>
+                <label class="setting-row">
+                    <span>Звуки</span>
+                    <input type="checkbox" id="toggleSound" checked>
+                </label>
+                <label class="setting-row">
+                    <span>Музыка</span>
+                    <input type="checkbox" id="toggleMusic" checked>
+                </label>
+            </div>
+            <div class="settings-panel">
+                <h3 class="settings-heading">Управление</h3>
+                <p class="settings-note">Нажмите на клавишу, затем нажмите новую</p>
+                <div id="keybindList"></div>
+                <button type="button" class="menu-btn secondary small-reset" id="btnResetKeybinds">Сбросить по умолчанию</button>
+            </div>
         </div>
         <button class="menu-btn secondary" id="btnBackFromSettings">← Назад</button>
     </div>
@@ -113,6 +122,7 @@
 <script src="js/renderer.js"></script>
 <script src="js/input.js"></script>
 <script src="js/save.js"></script>
+<script src="js/keybinds.js"></script>
 <script src="js/score.js"></script>
 <script src="js/network.js"></script>
 <script src="js/game.js"></script>

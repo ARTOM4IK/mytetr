@@ -2,6 +2,7 @@ const canvas = document.getElementById("canvas");
 const renderer = new Renderer(canvas);
 const input = new Input();
 const audio = new Audio();
+const keybinds = new Keybinds();
 const ui = new UI();
 const mp = new MultiplayerManager(audio);
 
@@ -44,11 +45,13 @@ function backToMenu() {
 window.backToMenu = backToMenu;
 
 function loop() {
+    const binds = keybinds.getKeyMap();
+
     if (mode === "single" && game) {
-        game.update(input);
+        game.update(input, binds);
         game.render();
     } else if (mode === "multi") {
-        mp.update(input);
+        mp.update(input, binds);
         mp.render();
     }
 
@@ -66,12 +69,20 @@ document.getElementById("btnMulti").addEventListener("click", () => {
 });
 
 document.getElementById("btnSettings").addEventListener("click", () => {
+    ui.renderKeybinds(keybinds);
     ui.showScreen("settingsScreen");
 });
 
 document.getElementById("btnBackMenu").addEventListener("click", backToMenu);
 document.getElementById("btnBackFromSettings").addEventListener("click", () => {
+    ui.stopKeyCapture();
     ui.showScreen("menuScreen");
+});
+
+document.getElementById("btnResetKeybinds").addEventListener("click", () => {
+    keybinds.reset();
+    ui.renderKeybinds(keybinds);
+    ui.updateControlsHint(keybinds);
 });
 
 document.getElementById("toggleSound").addEventListener("change", (e) => {
@@ -91,4 +102,5 @@ if (location.protocol === "file:") {
     console.warn("MyTetr: откройте http://localhost:3000 (запустите npm start в server/)");
 }
 
+ui.updateControlsHint(keybinds);
 loop();

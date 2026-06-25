@@ -199,14 +199,15 @@ class Game {
     handleInput(input, keyMap = {}) {
         if (this.isRemote) return;
 
-        const left = keyMap.left || "ArrowLeft";
-        const right = keyMap.right || "ArrowRight";
-        const down = keyMap.down || "ArrowDown";
-        const rotate = keyMap.rotate || "ArrowUp";
-        const hold = keyMap.hold || "KeyC";
-        const drop = keyMap.drop || "Space";
-        const pause = keyMap.pause || "Escape";
-        const restart = keyMap.restart || "KeyR";
+        const left = keyMap.left ?? Keybinds.DEFAULTS.left;
+        const right = keyMap.right ?? Keybinds.DEFAULTS.right;
+        const down = keyMap.down ?? Keybinds.DEFAULTS.down;
+        const rotate = keyMap.rotate ?? Keybinds.DEFAULTS.rotate;
+        const rotateCCW = keyMap.rotateCCW ?? Keybinds.DEFAULTS.rotateCCW;
+        const hold = keyMap.hold ?? Keybinds.DEFAULTS.hold;
+        const drop = keyMap.drop ?? Keybinds.DEFAULTS.drop;
+        const pause = keyMap.pause ?? Keybinds.DEFAULTS.pause;
+        const restart = keyMap.restart ?? Keybinds.DEFAULTS.restart;
 
         if (this.state === "gameover" && input.shouldRepeat(restart, 0, 300)) {
             this.reset();
@@ -256,13 +257,11 @@ class Game {
             }
         }
 
-        if (input.pressed("KeyZ") || input.pressed("ControlLeft")) {
+        if (input.shouldRepeat(rotateCCW, 0, 120)) {
             if (this.piece.rotate(this.board, -1)) {
                 if (this.audio) this.audio.rotate();
                 changed = true;
             }
-            input.consume("KeyZ");
-            input.consume("ControlLeft");
         }
 
         if (input.shouldRepeat(down, DAS_DELAY, SOFT_DROP_ARR)) {

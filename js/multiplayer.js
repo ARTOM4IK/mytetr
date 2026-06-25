@@ -242,12 +242,8 @@ class MultiplayerManager {
         requestAnimationFrame(() => this.resizeBoards());
     }
 
-    update(input) {
+    update(input, keyMap) {
         if (this.state !== "playing" || !this.myGame) return;
-
-        const keyMap = this.amTop
-            ? { left: "ArrowLeft", right: "ArrowRight", down: "ArrowDown", rotate: "ArrowUp", hold: "KeyC", drop: "Space" }
-            : { left: "KeyA", right: "KeyD", down: "KeyS", rotate: "KeyW", hold: "KeyQ", drop: "ShiftLeft" };
 
         this.myGame.update(input, keyMap);
         if (this.myGame.lineAnim.active) {
